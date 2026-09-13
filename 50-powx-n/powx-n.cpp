@@ -1,27 +1,23 @@
 class Solution {
 public:
-    double myPow(double x, int n) {
 
-        long long power = n;
+    double solve(double x, long n) {
 
-        if(power < 0)
-            power = -power;
+        if(n == 0)
+            return 1;
 
-        double ans = 1;
-
-        while(power > 0) {
-
-            if(power % 2 == 1) {
-                ans = ans * x;
-            }
-
-            x = x * x;
-            power = power / 2;
+        if(n < 0) {
+            return solve(1 / x, -n);
         }
 
-        if(n < 0)
-            return 1 / ans;
+        if(n % 2 == 0)
+            return solve(x * x, n / 2);
 
-        return ans;
+        return x * solve(x * x, (n - 1) / 2);
+    }
+
+    double myPow(double x, int n) {
+
+        return solve(x, (long)n);
     }
 };
